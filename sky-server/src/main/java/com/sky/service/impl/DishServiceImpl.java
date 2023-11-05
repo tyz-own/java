@@ -2,12 +2,16 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.sky.constant.MessageConstant;
+import com.sky.constant.StatusConstant;
 import com.sky.dto.DishDTO;
 import com.sky.dto.DishPageQueryDTO;
 import com.sky.entity.Dish;
 import com.sky.entity.DishFlavor;
+import com.sky.exception.DeletionNotAllowedException;
 import com.sky.mapper.DishFlavorMappper;
 import com.sky.mapper.DishMapper;
+import com.sky.mapper.SetmealDishMapper;
 import com.sky.result.PageResult;
 import com.sky.service.DishService;
 import com.sky.vo.DishVO;
@@ -26,6 +30,8 @@ public class DishServiceImpl implements DishService {
     private DishMapper dishMapper;
     @Autowired
     private DishFlavorMappper dishFlavorMappper;
+    @Autowired
+    private SetmealDishMapper setmealDishMapper;
     /**
      * 新增菜品和对应的口味数据
      * @param dishDTO
@@ -62,5 +68,33 @@ public class DishServiceImpl implements DishService {
         long total = page.getTotal();
         List<DishVO> records = page.getResult();
         return new PageResult(total,records);
+    }
+
+    /**
+     * 菜品批量删除
+     * @param ids
+     */
+    @Transactional
+    public void deleteByIds(List<Long> ids) {
+        //判断当前菜品是否能够删除--是否存在起售的菜品？？
+        for(Long id : ids){
+            Dish dish = dishMapper.getById(id);
+            if(dish.getStatus() == StatusConstant.ENABLE){
+                throw new DeletionNotAllowedException(MessageConstant.DISH_ON_SALE);
+            }
+        }
+        //判断当前菜品是否能够删除--是否被关联了？？
+        List<Long> setmealIdsByDishIds = setmealDishMapper.getSetmealIdsByDishIds(ids);
+        if(setmealIdsByDishIds != null && setmealIdsByDishIds.size() > 0){
+            throw new DeletionNotAllowedException(MessageConstant.DISH_BE_RELATED_BY_SETMEAL);
+        }
+        //删除彩票表中的数据
+        for(Long id:ids){
+            dishMapper.deleteById(id);
+            //删除菜品关联的口味数据
+            dishFlavorMappper.deleteByDishId(id);
+        }
+
+
     }
 }

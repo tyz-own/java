@@ -12,7 +12,11 @@ import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.Arrays;
+import java.util.List;
 
 @Api(tags = "菜品相关接口" )
 @RestController
@@ -46,5 +50,14 @@ public class DishController {
        log.info("菜品分页查询：参数为{}",dishPageQueryDTO);
        PageResult pageResult = dishService.pageQuery(dishPageQueryDTO);
        return Result.success(pageResult);
+    }
+
+    @DeleteMapping
+    @ApiOperation("菜品批量删除")
+    public Result<String> deleteByIds(@RequestParam List<Long> ids){
+        log.info("菜品批量删除：{}", ids);
+
+        dishService.deleteByIds(ids);
+        return Result.success();
     }
 }
