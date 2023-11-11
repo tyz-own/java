@@ -7,6 +7,7 @@ import com.sky.entity.Employee;
 import com.sky.enumeration.OperationType;
 import org.apache.ibatis.annotations.Insert;
 import org.apache.ibatis.annotations.Mapper;
+import org.apache.ibatis.annotations.Param;
 import org.apache.ibatis.annotations.Select;
 import org.springframework.expression.spel.ast.OpPlus;
 
@@ -19,6 +20,7 @@ public interface EmployeeMapper {
      * @return
      */
     @Select("select * from employee where username = #{username}")
+//    Employee getByUsername(@Param("username") String username);
     Employee getByUsername(String username);
 
     /**

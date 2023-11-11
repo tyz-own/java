@@ -2,6 +2,7 @@ package com.sky.service.impl;
 
 import com.github.pagehelper.Page;
 import com.github.pagehelper.PageHelper;
+import com.github.pagehelper.PageInfo;
 import com.sky.constant.MessageConstant;
 import com.sky.constant.PasswordConstant;
 import com.sky.constant.StatusConstant;
@@ -101,6 +102,8 @@ import java.util.List;
         //开始分页功能查询
         PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
         Page<Employee> page = employeeMapper.pageQuery(employeePageQueryDTO);
+        //PageInfo<Employee> pageInfo = new PageInfo<>(page);
+        //System.out.println(pageInfo);
         long total = page.getTotal();
         List<Employee> records = page.getResult();
         return new PageResult(total,records);
