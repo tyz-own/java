@@ -182,10 +182,12 @@ public class DishServiceImpl implements DishService {
      * @return
      */
     public List<Dish> list(Long categoryId) {
+        //查询起售中的商品
         Dish dish = Dish.builder()
                 .categoryId(categoryId)
                 .status(StatusConstant.ENABLE)
                 .build();
+
         return dishMapper.list(dish);
     }
 
