@@ -13,6 +13,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.beans.beancontext.BeanContext;
 import java.time.LocalDateTime;
@@ -35,6 +36,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * 添加购物车
      * @param shoppingCartDTO
      */
+    @Transactional
     public void addShoppingCart(ShoppingCartDTO shoppingCartDTO) {
         //判断购物车中的商品是否已经存在
         ShoppingCart shoppingCart = new ShoppingCart();
@@ -77,6 +79,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
      * 查看购物车
      * @return
      */
+    @Transactional
     public List<ShoppingCart> showShoppingCart() {
         Long userid = BaseContext.getCurrentId();
         ShoppingCart shoppingCart = ShoppingCart.builder()
@@ -89,6 +92,7 @@ public class ShoppingCartServiceImpl implements ShoppingCartService {
     /**
      * 清空购物车
      */
+    @Transactional
     public void cleanShoppingCart() {
         Long userid = BaseContext.getCurrentId();
         shoppingCartMapper.deleteByUserID(userid);

@@ -62,6 +62,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @param setmealPageQueryDTO
      * @return
      */
+    @Transactional
     public PageResult page(SetmealPageQueryDTO setmealPageQueryDTO) {
         PageHelper.startPage(setmealPageQueryDTO.getPage(),setmealPageQueryDTO.getPageSize());
         Page<SetmealVO> page = setmealMapper.page(setmealPageQueryDTO);
@@ -93,6 +94,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @param id
      * @return
      */
+    @Transactional
     public SetmealVO getByIdWithDishs(Long id) {
         SetmealVO setmealVO = new SetmealVO();
         Setmeal setmeal = setmealMapper.getById(id);
@@ -130,7 +132,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @param status
      * @param id
      */
-
+    @Transactional
     public void StartOrStop(Integer status, Long id) {
         //起售套餐时，判断套餐内是否有停售菜品，有停售菜品提示"套餐内包含未启售菜品，无法启售"
         if(status == StatusConstant.ENABLE){
@@ -156,6 +158,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @param setmeal
      * @return
      */
+    @Transactional
     public List<Setmeal> list(Setmeal setmeal) {
         List<Setmeal> list = setmealMapper.list(setmeal);
         return list;
@@ -166,6 +169,7 @@ public class SetmealServiceImpl implements SetmealService {
      * @param id
      * @return
      */
+    @Transactional
     public List<DishItemVO> getDishItemById(Long id) {
         return setmealMapper.getDishItemBySetmealId(id);
     }

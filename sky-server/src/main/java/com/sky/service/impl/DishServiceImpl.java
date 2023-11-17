@@ -69,6 +69,7 @@ public class DishServiceImpl implements DishService {
      * @param dishPageQueryDTO
      * @return
      */
+    @Transactional
     public PageResult pageQuery(DishPageQueryDTO dishPageQueryDTO) {
         PageHelper.startPage(dishPageQueryDTO.getPage(),dishPageQueryDTO.getPageSize());
         Page<DishVO> page = dishMapper.pageQuery(dishPageQueryDTO);
@@ -114,6 +115,7 @@ public class DishServiceImpl implements DishService {
      * @param id
      * @return
      */
+    @Transactional
     public DishVO getByIdWithFlavor(Long id) {
 
         Dish dish = dishMapper.getById(id);
@@ -129,6 +131,7 @@ public class DishServiceImpl implements DishService {
      * 根据id修改菜品的基本信息和口味信息
      * @param dishDTO
      */
+    @Transactional
     public void updateWithFlavor(DishDTO dishDTO) {
         Dish dish = new Dish();
         BeanUtils.copyProperties(dishDTO,dish);
@@ -181,6 +184,7 @@ public class DishServiceImpl implements DishService {
      * @param categoryId
      * @return
      */
+    @Transactional
     public List<Dish> list(Long categoryId) {
         //查询起售中的商品
         Dish dish = Dish.builder()
@@ -196,6 +200,7 @@ public class DishServiceImpl implements DishService {
      * @param dish
      * @return
      */
+    @Transactional
     public List<DishVO> listWithFlavor(Dish dish) {
         List<Dish> dishList = dishMapper.list(dish);
 

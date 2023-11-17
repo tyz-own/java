@@ -20,6 +20,7 @@ import com.sky.service.EmployeeService;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.DigestUtils;
 
 import java.time.LocalDateTime;
@@ -37,6 +38,7 @@ import java.util.List;
      * @param employeeLoginDTO
      * @return
      */
+    @Transactional
     public Employee login(EmployeeLoginDTO employeeLoginDTO) {
         String username = employeeLoginDTO.getUsername();
         String password = employeeLoginDTO.getPassword();
@@ -71,6 +73,7 @@ import java.util.List;
      * 新增员工
      * @param employeeDTO
      */
+    @Transactional
     public void save(EmployeeDTO employeeDTO){
         System.out.println("当前线程的ID："+Thread.currentThread().getId());
 
@@ -97,7 +100,7 @@ import java.util.List;
      * @param employeePageQueryDTO
      * @return
      */
-
+    @Transactional
     public PageResult pageQuery(EmployeePageQueryDTO employeePageQueryDTO) {
         //开始分页功能查询
         PageHelper.startPage(employeePageQueryDTO.getPage(),employeePageQueryDTO.getPageSize());
@@ -114,7 +117,7 @@ import java.util.List;
      * @param status
      * @param id
      */
-    @Override
+    @Transactional
     public void startOrstop(Integer status, long id) {
 //        Employee employee = new Employee();
 //        employee.setStatus(status);
@@ -131,6 +134,7 @@ import java.util.List;
      * @param id
      * @return
      */
+    @Transactional
     public Employee getById(Long id) {
         Employee employee = employeeMapper.getById(id);
         employee.setPassword("****");
@@ -142,7 +146,7 @@ import java.util.List;
      * 编辑员工信息
      * @param employeeDTO
      */
-    @Override
+    @Transactional
     public void update(EmployeeDTO employeeDTO) {
         Employee employee = new Employee();
         BeanUtils.copyProperties(employeeDTO,employee);

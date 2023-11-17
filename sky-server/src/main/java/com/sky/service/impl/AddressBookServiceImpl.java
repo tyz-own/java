@@ -22,6 +22,7 @@ public class AddressBookServiceImpl implements AddressBookService {
      * @param addressBook
      * @return
      */
+    @Transactional
     public List<AddressBook> list(AddressBook addressBook) {
         return addressBookMapper.list(addressBook);
     }
@@ -31,6 +32,7 @@ public class AddressBookServiceImpl implements AddressBookService {
      *
      * @param addressBook
      */
+    @Transactional
     public void save(AddressBook addressBook) {
         addressBook.setUserId(BaseContext.getCurrentId());
         addressBook.setIsDefault(0);
@@ -43,6 +45,7 @@ public class AddressBookServiceImpl implements AddressBookService {
      * @param id
      * @return
      */
+    @Transactional
     public AddressBook getById(Long id) {
         AddressBook addressBook = addressBookMapper.getById(id);
         return addressBook;
@@ -53,6 +56,7 @@ public class AddressBookServiceImpl implements AddressBookService {
      *
      * @param addressBook
      */
+    @Transactional
     public void update(AddressBook addressBook) {
         addressBookMapper.update(addressBook);
     }
@@ -79,6 +83,7 @@ public class AddressBookServiceImpl implements AddressBookService {
      *
      * @param id
      */
+    @Transactional
     public void deleteById(Long id) {
         addressBookMapper.deleteById(id);
     }

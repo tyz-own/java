@@ -14,6 +14,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.apache.http.impl.client.HttpClients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.HashMap;
@@ -36,6 +37,7 @@ public class UserServiceImpl implements UserService {
      * @param userLoginDTO
      * @return
      */
+    @Transactional
     public User wxLogin(UserLoginDTO userLoginDTO) {
         //调用微信服务器的接口来获得当前用户的openid
         String openid = getOpenid(userLoginDTO.getCode());
@@ -63,6 +65,7 @@ public class UserServiceImpl implements UserService {
      * @param code
      * @return
      */
+    @Transactional
     private String getOpenid(String code){
         Map<String, String> map = new HashMap<>();
         map.put("appid", weChatProperties.getAppid());
