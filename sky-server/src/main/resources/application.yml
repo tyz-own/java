@@ -54,7 +54,7 @@ sky:
     appid: ${sky.wechat.appid}
     secret: ${sky.wechat.secret}
   shop:
-    address: 河南省开封市龙亭区金明街道
+    address: 北京市海淀区上地十街10号
   baidu:
     ak: qDU7T9YZBof7C40H1UC9qFM6yGyRA3il
 

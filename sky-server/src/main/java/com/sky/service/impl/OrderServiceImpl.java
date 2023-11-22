@@ -79,7 +79,7 @@ public class OrderServiceImpl implements OrderService {
         }
 
         //检验用户订单是否超出范围
-        checkOutOfRange(addressBook.getCityName() + addressBook.getDistrictName() + addressBook.getDetail());
+        //checkOutOfRange(addressBook.getCityName() + addressBook.getDistrictName() + addressBook.getDetail());
 
         Long userId = BaseContext.getCurrentId();
 
