@@ -21,7 +21,7 @@ public class OrderTask {
     /**
      * 超时订单
      */
-    @Scheduled(cron = "0 * * * * ? *")
+    @Scheduled(cron = "0 * * * * ?")
 //    @Scheduled(cron = "1/5 * * * * ?")
     public void executeTask(){
         log.info("定时处理超时订单：{}",new Date());
