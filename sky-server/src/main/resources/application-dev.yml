@@ -7,10 +7,10 @@ sky:
     username: root
     password: tyz1597856
   alioss:
-    endpoint: oss-cn-beijing.aliyuncs.com
-    access-key-id: LTAI5tRiw8kG1mkYsiDUF1xR
-    access-key-secret: EYrZzQzNVgSQAYwN98NqWDZmZgytmZ
-    bucket-name: sky-tyz
+    endpoint: 
+    access-key-id: 
+    access-key-secret: 
+    bucket-name: 
   redis:
     host: localhost
     port: 6379
